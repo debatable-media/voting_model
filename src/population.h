@@ -14,7 +14,12 @@ struct person
 	}
 	~person() {}
 
+	// Each person's political views are modelled as a point
+	// in an N-dimensional space of some topology. 
 	vector<double, n> view;
+
+	// Their preferences are numbers from 0.0 (strong dislike) 
+	// to 1.0 (strong like) for each candidate.
 	array<double> preference;
 };
 
@@ -30,10 +35,17 @@ struct population
 	{
 	}
 
+	// A population contains a bunch of people
 	array<person<n> > electorate;
-	array<int> candidates;
+
+	// distributed within some N-dimensional topology
 	topology<n> *geometry;
 
+	// some of whom are candidates up for election
+	array<int> candidates;
+
+	// Randomly generate the voter_count people in the electorate with candidate_count candidates
+	// using the random distribution specified.
 	void generate(int voter_count, int candidate_count, real_distribution distribution)
 	{
 		//printf("Generating population of %d.\n", voter_count);
@@ -64,6 +76,7 @@ struct population
 		}
 	}
 
+	// Drop a candidate from the election. Candidate remains in electorate.
 	void drop(int i)
 	{
 		candidates.at(i).pop();
@@ -71,6 +84,7 @@ struct population
 			electorate[i].preference.at(i).pop();
 	}
 
+	// Thermo-nuclear warefare. Everyone dies.
 	void clear()
 	{
 		electorate.clear();

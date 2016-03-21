@@ -5,6 +5,9 @@
 #include "metric.h"
 #include "population.h"
 
+// A ballot is a set of markings for each candidate.
+// Yes, this limits you to certain kinds of ballots,
+// but it also only limits you to realistic ballots.
 typedef array<int> ballot;
 
 template <int n>
@@ -19,10 +22,18 @@ struct voting_system
 	virtual ~voting_system() {}
 
 	population<n> *people;
+
+	// All of the ballots that people submitted
 	array<ballot> ballots;
+
+	// The final outcome of the election ranks
+	// the candidates from winner to loser
 	array<int> ranking;
+
+	// The number of seats we need to fill with elected candidates
 	int num_seats;
 
+	// Drop candidate i from the election
 	void drop(int i)
 	{
 		people->drop(i);

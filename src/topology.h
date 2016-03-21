@@ -6,6 +6,9 @@
 
 using namespace core;
 
+
+// We want to be able to generate random vectors bound by different topologies
+// in order to simulate different models for political views.
 template <int n>
 struct topology
 {
@@ -18,6 +21,7 @@ struct topology
 	virtual double similarity(vector<double, n> v0, vector<double, n> v1, metric distance = euclidean<n>) = 0;
 };
 
+// Random vectors are contained within a cube
 template <int n>
 struct cube : topology<n>
 {
@@ -54,6 +58,7 @@ struct cube : topology<n>
 	}
 };
 
+// Random vectors are contained within a ball
 template <int n>
 struct ball : topology<n>
 {
